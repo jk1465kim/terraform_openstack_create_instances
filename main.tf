@@ -1,6 +1,6 @@
 resource "openstack_compute_instance_v2" "instance" {
-  count = 2 
-  name = var.openstack_instance_name_prefix"-${count.index}"
+  count = "${var.instance_count}"
+  name = format("%s-%03d", var.openstack_instance_name_prefix, count.index + 1)
   flavor_name = data.openstack_compute_flavor_v2.flavor.name
   key_pair = var.openstack_key_name
   network {
@@ -17,7 +17,7 @@ resource "openstack_compute_instance_v2" "instance" {
 
 resource "openstack_blockstorage_volume_v3" "os_block"{
   count = 2
-  name = var.openstack_instance_name_prefix"-block-${count.index}"
+  name = "${var.openstack_instance_name_prefix}-block-${count.index + 1}"
   size = 100
   enable_online_resize = true
   image_id = data.openstack_images_image_v2.image.id

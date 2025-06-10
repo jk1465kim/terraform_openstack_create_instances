@@ -13,3 +13,7 @@ variable "openstack_instance_name_prefix" {
 variable "openstack_key_name" {
   type = string
 }
+
+variable "instance_count" {
+  type = number
+}
