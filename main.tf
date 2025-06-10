@@ -16,7 +16,7 @@ resource "openstack_compute_instance_v2" "instance" {
 }
 
 resource "openstack_blockstorage_volume_v3" "os_block"{
-  count = 2
+  count = "${var.instance_count}"
   name = "${var.openstack_instance_name_prefix}-block-${count.index + 1}"
   size = 100
   enable_online_resize = true
@@ -33,6 +33,6 @@ data "openstack_compute_flavor_v2" "flavor" {
 }
 
 data "openstack_networking_port_v2" "port" {
-  count = 2
+  count = "${var.instance_count}"
   device_id = openstack_compute_instance_v2.instance[count.index].id
 }
